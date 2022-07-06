@@ -40,11 +40,14 @@ final class TypedItem implements CacheItemInterface
     private bool $isHit = false;
 
     /**
+     * @var string $key
+     */
+    private string $key;
+
+    /**
      * @param string $key
      */
-    public function __construct(
-        private string $key
-    ) {
+    public function __construct($key) {
         $this->key = $key;
         $this->expiration = null;
     }
