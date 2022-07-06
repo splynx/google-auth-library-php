@@ -27,7 +27,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * @var mixed
      */
-    private $value;
+    private mixed $value;
 
     /**
      * @var \DateTimeInterface|null
@@ -42,12 +42,9 @@ final class TypedItem implements CacheItemInterface
     /**
      * @param string $key
      */
-    private string $key;
-
-    /**
-     * @param string $key
-     */
-    public function __construct(string $key) {
+    public function __construct(
+        private string $key
+    ) {
         $this->key = $key;
         $this->expiration = null;
     }
@@ -63,7 +60,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function get()
+    public function get(): mixed
     {
         return $this->isHit() ? $this->value : null;
     }
@@ -87,7 +84,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set($value)
+    public function set(mixed $value): static
     {
         $this->isHit = true;
         $this->value = $value;
@@ -98,7 +95,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt($expiration)
+    public function expiresAt($expiration): static
     {
         if ($this->isValidExpiration($expiration)) {
             $this->expiration = $expiration;
@@ -118,7 +115,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter($time)
+    public function expiresAfter($time): static
     {
         if (is_int($time)) {
             $this->expiration = $this->currentTime()->add(new \DateInterval("PT{$time}S"));
