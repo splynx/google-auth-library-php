@@ -87,7 +87,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function set(mixed $value): static
+    public function set(mixed $value)
     {
         $this->isHit = true;
         $this->value = $value;
@@ -98,7 +98,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAt($expiration): static
+    public function expiresAt($expiration)
     {
         if ($this->isValidExpiration($expiration)) {
             $this->expiration = $expiration;
@@ -118,7 +118,7 @@ final class TypedItem implements CacheItemInterface
     /**
      * {@inheritdoc}
      */
-    public function expiresAfter($time): static
+    public function expiresAfter($time)
     {
         if (is_int($time)) {
             $this->expiration = $this->currentTime()->add(new \DateInterval("PT{$time}S"));
